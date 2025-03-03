@@ -140,7 +140,7 @@ cd feedback-loops-genai-dotnet
 
 ### 3. Set Up Environment Variables
 
-Create a `local.settings.json` file in the root directory with the following:
+Create a `local.settings.json` file in the `FeedbackLoops.Functions` directory with the following:
 
 ```
 {
@@ -157,13 +157,13 @@ Create a `local.settings.json` file in the root directory with the following:
 }
 ```
 
-### 4. Build the solution**
+### 4. Build the solution
 
 ```bash
 dotnet build
 ```
 
-### 5. Start Azure Functions**
+### 5. Start Azure Functions
 
 ```bash
 func start
