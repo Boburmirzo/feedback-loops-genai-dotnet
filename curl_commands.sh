@@ -1,0 +1,5 @@
+curl -X POST "http://localhost:7071/api/add-podcast" \\ -H "Content-Type: application/json" \\ -d '{ "title": "Future of Robotics", "transcript": "This episode discusses the advancements in robotics and how automation is transforming industries worldwide. We explore the latest innovations in robotic technologies, including machine learning and AI integration, enabling robots to perform complex tasks with precision. Additionally, we discuss the ethical implications and challenges of widespread automation, such as its impact on the workforce and society at large." }'
+
+curl -X POST "http://localhost:7071/api/update-user-history" \\ -H "Content-Type: application/json" \\ -d '{"userId": 1, "listeningHistory": "Interested in robotics and AI."}'
+
+curl -X GET "http://localhost:7071/api/recommend-podcasts?userId=1"

@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedbackLoops.Common", "FeedbackLoops.Common\FeedbackLoops.Common.csproj", "{52DC4F1E-A098-FE0C-A356-4FE911E71E20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedbackLoops.Functions", "FeedbackLoops.Functions\FeedbackLoops.Functions.csproj", "{F7327CDC-2832-B259-B27E-D9E5681D4BDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52DC4F1E-A098-FE0C-A356-4FE911E71E20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52DC4F1E-A098-FE0C-A356-4FE911E71E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52DC4F1E-A098-FE0C-A356-4FE911E71E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52DC4F1E-A098-FE0C-A356-4FE911E71E20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7327CDC-2832-B259-B27E-D9E5681D4BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7327CDC-2832-B259-B27E-D9E5681D4BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7327CDC-2832-B259-B27E-D9E5681D4BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7327CDC-2832-B259-B27E-D9E5681D4BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9036E319-BEC9-48CB-90B8-659303995B20}
+	EndGlobalSection
+EndGlobal
