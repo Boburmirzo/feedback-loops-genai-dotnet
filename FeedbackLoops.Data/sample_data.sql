@@ -4,7 +4,7 @@ CREATE EXTENSION IF NOT EXISTS vector;
 CREATE TABLE podcast_episodes (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
-    description TEXT,
+    summary TEXT,
     transcript TEXT NOT NULL,
     embedding VECTOR(1536)
 );

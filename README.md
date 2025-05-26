@@ -166,6 +166,7 @@ dotnet build
 ### 5. Start Azure Functions
 
 ```bash
+cd FeedbackLoops.Functions
 func start
 ```
 

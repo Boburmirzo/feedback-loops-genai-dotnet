@@ -42,9 +42,9 @@ public class PodcastFunctions
             return badResponse;
         }
 
-        var embedding = await _embeddingService.GetEmbeddingAsync(data.Transcript);
         string summaryPrompt = $"Summarize the following podcast transcript:\n{data.Transcript}\nSummary:";
         var summary = await _chatCompletionService.GetChatCompletionAsync(summaryPrompt);
+        var embedding = await _embeddingService.GetEmbeddingAsync(summary);
 
         string insertQuery = "INSERT INTO podcast_episodes (title, summary, transcript, embedding) VALUES (@title, @summary, @transcript, @embedding);";
         await _sqlExecutorService.ExecuteQueryAsync(insertQuery, new { data.Title, data.Transcript, embedding, summary });
@@ -121,7 +121,7 @@ public class PodcastFunctions
             FROM podcast_episodes
             WHERE embedding IS NOT NULL
             ORDER BY similarity ASC
-            LIMIT 5;";
+            LIMIT 3;";
 
         var recommendations = await _sqlExecutorService.ExecuteQueryAsync(recommendationQuery, new { embedding = userEmbedding });
 
@@ -145,6 +145,50 @@ public class PodcastFunctions
 
         var response = req.CreateResponse(HttpStatusCode.OK);
         await response.WriteStringAsync(JsonConvert.SerializeObject(responseList));
+        return response;
+    }
+
+    [Function("GetSuggestedPodcasts")]
+    public async Task<HttpResponseData> GetSuggestedPodcastsAsync(
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "get-suggested-podcasts")] HttpRequestData req)
+    {
+        _logger.LogInformation("Received a request to fetch suggested podcasts for a user.");
+
+        var queryParams = System.Web.HttpUtility.ParseQueryString(req.Url.Query);
+        string userIdString = queryParams.Get("userId");
+
+        if (string.IsNullOrEmpty(userIdString))
+        {
+            var badResponse = req.CreateResponse(HttpStatusCode.BadRequest);
+            await badResponse.WriteStringAsync("Missing 'userId' in query parameters.");
+            return badResponse;
+        }
+
+        if (!int.TryParse(userIdString, out int userId))
+        {
+            var badResponse = req.CreateResponse(HttpStatusCode.BadRequest);
+            await badResponse.WriteStringAsync("Invalid 'userId'. It must be an integer.");
+            return badResponse;
+        }
+
+        string query = @"
+            SELECT sp.user_id, pe.id AS podcast_id, pe.title
+            FROM suggested_podcasts sp
+            JOIN podcast_episodes pe ON sp.podcast_id = pe.id
+            WHERE sp.user_id = @userId
+            ORDER BY sp.similarity_score ASC;";
+
+        var suggested = await _sqlExecutorService.ExecuteQueryAsync(query, new { userId });
+
+        var result = suggested.Select(row => new
+        {
+            UserId = row["user_id"],
+            PodcastId = row["podcast_id"],
+            Title = row["title"]
+        });
+
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        await response.WriteStringAsync(JsonConvert.SerializeObject(result));
         return response;
     }
 }
